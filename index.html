@@ -1,0 +1,1000 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Atendimento psicológico com acolhimento, ética e clareza. Você não precisa dar conta de tudo sozinho(a)." />
+  <title>Destrave Sua Mente | Psicologia Clínica</title>
+
+  <style>
+    :root{
+      /* Paleta mantida (verde/menta + fundo claro) */
+      --bg: #EEF2EF;
+      --surface: #F6F8F6;
+      --ink: #1F2B29;
+      --muted: #4C6762;
+
+      --brand: #67A79A;
+      --brand-2: #5B9C8F;
+      --brand-3: #4F8B7F;
+
+      --border: rgba(31,43,41,.10);
+      --shadow: 0 12px 30px rgba(31,43,41,.10);
+      --radius: 18px;
+      --radius-lg: 22px;
+
+      --max: 1080px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.35;
+    }
+
+    a{color:inherit}
+    .container{
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px 16px;
+    }
+
+    /* ===== Topbar ===== */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(238,242,239,.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 10px 16px;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    /* Logo slot (logo.png) */
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .logo-slot{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(103,167,154,.10);
+      border: 1px dashed rgba(79,139,127,.35);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .logo-slot img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display:block;
+    }
+    .brand-title{
+      font-weight: 800;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--brand-2);
+    }
+    .brand-sub{
+      display:block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    /* Desktop nav */
+    .nav{
+      display:none;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
+    .nav a{
+      text-decoration:none;
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      transition: .15s ease;
+    }
+    .nav a:hover{
+      color: var(--ink);
+      border-color: var(--border);
+      background: rgba(255,255,255,.55);
+    }
+
+    /* Mobile menu (3 dots) */
+    .menu-wrap{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .menu-btn{
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid rgba(79,139,127,.22);
+      background: rgba(255,255,255,.55);
+      color: var(--brand-3);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease;
+    }
+    .menu-btn:hover{background: rgba(103,167,154,.10); transform: translateY(-1px)}
+    .menu-btn:active{transform: translateY(0)}
+    .menu-panel{
+      position: fixed;
+      top: 64px;
+      right: 14px;
+      left: 14px;
+      z-index: 55;
+      background: rgba(246,248,246,.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 10px;
+      display:none;
+    }
+    .menu-panel.open{display:block}
+    .menu-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .menu-item{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(79,139,127,.14);
+      background: rgba(255,255,255,.55);
+      text-decoration:none;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .menu-item:hover{
+      background: rgba(103,167,154,.10);
+      border-color: rgba(79,139,127,.20);
+    }
+    .mi-ic{
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: rgba(103,167,154,.12);
+      border: 1px solid rgba(79,139,127,.18);
+      display:grid;
+      place-items:center;
+      color: var(--brand-3);
+      flex: 0 0 auto;
+    }
+    .menu-backdrop{
+      position: fixed;
+      inset: 0;
+      z-index: 54;
+      background: rgba(31,43,41,.18);
+      display:none;
+    }
+    .menu-backdrop.open{display:block}
+
+    /* ===== Hero ===== */
+    .hero{padding: 22px 0 8px;}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .kicker{
+      color: var(--brand-3);
+      font-weight: 800;
+      letter-spacing: .3px;
+      font-size: 13px;
+      margin: 0 0 8px;
+    }
+    h1{
+      margin: 0 0 10px;
+      font-size: 38px;
+      line-height: 1.03;
+      color: var(--brand-2);
+      letter-spacing: .2px;
+    }
+    .lead{
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 54ch;
+    }
+
+    /* ===== EXACTLY 3 CTAs (WhatsApp) ===== */
+    .btn-row{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .btn{
+      appearance:none;
+      border: 1px solid transparent;
+      background: var(--brand);
+      color: white;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      box-shadow: 0 12px 22px rgba(79,139,127,.22);
+      transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: var(--brand-2)}
+    .btn:active{transform: translateY(0px)}
+    .btn.secondary{
+      background: transparent;
+      color: var(--brand-3);
+      border-color: rgba(79,139,127,.30);
+      box-shadow: none;
+    }
+    .btn.secondary:hover{background: rgba(103,167,154,.12);}
+
+    .hero-card{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .hero-img{
+      width:100%;
+      height: auto;
+      display:block;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+    }
+    .hero-card-footer{
+      padding: 12px 14px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .mini{
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .pill{
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--brand-3);
+      background: rgba(103,167,154,.12);
+      border: 1px solid rgba(79,139,127,.18);
+      padding: 6px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* ===== Sections ===== */
+    section{padding: 18px 0;}
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    h2{
+      margin:0;
+      font-size: 30px;
+      color: var(--brand-2);
+      letter-spacing:.2px;
+      line-height:1.1;
+    }
+    .section-desc{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 70ch;
+    }
+
+    .card{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: 0 10px 26px rgba(31,43,41,.07);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    /* Help list */
+    .accordion{display:grid; gap: 10px;}
+    details{
+      background: var(--brand);
+      border-radius: var(--radius);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 14px 26px rgba(79,139,127,.18);
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      padding: 14px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      color: white;
+      font-weight: 900;
+      font-size: 14px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.14);
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,.18);
+      transition: transform .12s ease;
+    }
+    details[open] .chev{transform: rotate(180deg);}
+    .details-body{
+      padding: 0 14px 14px;
+      color: rgba(255,255,255,.92);
+      font-weight: 600;
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,.18);
+    }
+
+    /* Disorder cards */
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      font-weight: 900;
+      color: var(--brand-3);
+      font-size: 12px;
+      background: rgba(103,167,154,.12);
+      border: 1px solid rgba(79,139,127,.18);
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 18px;
+      color: var(--ink);
+      letter-spacing:.2px;
+    }
+    .card p{margin:0; color: var(--muted); font-size: 14px;}
+
+    /* About bullets */
+    ul{margin: 10px 0 0; padding-left: 20px; color: var(--muted);}
+    li{margin: 6px 0}
+
+    /* Photos */
+    .photo{
+      width:100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      background: var(--surface);
+    }
+    .photo img{
+      width:100%;
+      height:auto;
+      display:block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+
+    /* FAQ */
+    .faq{display:grid; gap: 10px;}
+    .faq details{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 22px rgba(31,43,41,.06);
+    }
+    .faq summary{color: var(--ink); font-weight: 900;}
+    .faq .details-body{
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .faq .chev{
+      background: rgba(103,167,154,.10);
+      border-color: rgba(79,139,127,.18);
+      color: var(--brand-3);
+    }
+
+    /* Footer */
+    footer{
+      padding: 26px 0 24px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .divider{
+      height:1px;
+      background: var(--border);
+      margin: 16px 0;
+    }
+
+    /* Desktop enhancements (mobile-first) */
+    @media (min-width: 860px){
+      .container{padding: 26px 20px;}
+      .hero-grid{grid-template-columns: 1.05fr .95fr; gap: 18px; align-items: stretch;}
+      h1{font-size: 52px;}
+      .grid.two{grid-template-columns: 1fr 1fr;}
+      .grid.three{grid-template-columns: 1fr 1fr 1fr;}
+      .nav{display:flex;}
+      .menu-wrap{display:none;}
+      .menu-panel{display:none !important;}
+      .menu-backdrop{display:none !important;}
+    }
+
+    /* Focus */
+    :focus-visible{
+      outline: 3px solid rgba(103,167,154,.40);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="Marca">
+        <!-- Espaço para logo.png -->
+        <div class="logo-slot" title="logo.png">
+          <img src="logo.png" alt="Logo da Destrave Sua Mente" />
+        </div>
+        <div style="min-width:0">
+          <div class="brand-title">Destrave Sua Mente</div>
+          <span class="brand-sub">Psicologia clínica</span>
+        </div>
+      </div>
+
+      <!-- Mobile menu (3 dots) -->
+      <div class="menu-wrap" aria-label="Menu do site">
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuPanel">
+          <!-- ícone 3 pontos -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="6" cy="12" r="2" fill="currentColor"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            <circle cx="18" cy="12" r="2" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Desktop nav -->
+      <nav class="nav" aria-label="Navegação">
+        <a href="#inicio">Início</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#atendimentos">Atendimentos</a>
+        <a href="#entenda">Transtornos</a>
+        <a href="#espaco">Nosso espaço</a>
+        <a href="#faq">Dúvidas</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile menu panel -->
+  <div class="menu-backdrop" id="menuBackdrop" aria-hidden="true"></div>
+  <div class="menu-panel" id="menuPanel" role="dialog" aria-label="Menu" aria-modal="true">
+    <div class="menu-grid">
+      <a class="menu-item" href="#inicio">
+        <span class="mi-ic" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M4 11.5 12 5l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Início
+      </a>
+
+      <a class="menu-item" href="#sobre">
+        <span class="mi-ic" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 20a8 8 0 1 0-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        Sobre
+      </a>
+
+      <a class="menu-item" href="#atendimentos">
+        <span class="mi-ic" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M7 3h10v4H7V3Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M6 7h12v14H6V7Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M9 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        Atendimentos
+      </a>
+
+      <a class="menu-item" href="#entenda">
+        <span class="mi-ic" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19a7 7 0 1 0-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M5 12v7h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        Transtornos
+      </a>
+
+      <a class="menu-item" href="#espaco">
+        <span class="mi-ic" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M4 10.5 12 6l8 4.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M9 21v-7h6v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        Nosso espaço
+      </a>
+
+      <a class="menu-item" href="#faq">
+        <span class="mi-ic" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.9.4-1.5 1-1.5 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 17h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        Dúvidas
+      </a>
+
+      <a class="menu-item" href="#contato">
+        <span class="mi-ic" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8" stroke="currentColor" stroke-width="2"/>
+            <path d="M21 8l-9 6L3 8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Contato
+      </a>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <main id="inicio" class="container hero">
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">Acolhimento • Ética • Clareza</p>
+        <h1>Destrave sua mente.<br/>Cuide da sua saúde emocional.</h1>
+
+        <p class="lead">
+          Atendimento psicológico com acolhimento, ética e clareza.
+          Você não precisa dar conta de tudo sozinho(a).
+        </p>
+
+        <!-- CTA 1 (WhatsApp) -->
+        <div class="btn-row" role="group" aria-label="Ações principais">
+          <a class="btn" id="ctaWa1" href="#" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+          <a class="btn secondary" href="#entenda">Quero entender o que estou sentindo</a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Imagem principal">
+        <img class="hero-img" src="inicial.png" alt="Atendimento psicológico em consultório" />
+        <div class="hero-card-footer">
+          <span class="mini">Atendimento presencial e/ou online</span>
+          <span class="pill">Acolhimento com clareza</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- COMO PODEMOS AJUDAR -->
+  <section aria-label="Como podemos te ajudar">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Como podemos te ajudar</h2>
+          <p class="section-desc">Abaixo estão algumas demandas comuns que acompanhamos na clínica.</p>
+        </div>
+      </div>
+
+      <div class="accordion" aria-label="Lista de demandas">
+        <details>
+          <summary>
+            Ansiedade e crises de pânico
+            <span class="chev" aria-hidden="true">˅</span>
+          </summary>
+          <div class="details-body">Se você sente preocupação constante, tensão ou medo intenso, podemos acolher e construir estratégias práticas para o dia a dia.</div>
+        </details>
+
+        <details>
+          <summary>
+            Depressão e desânimo constante
+            <span class="chev" aria-hidden="true">˅</span>
+          </summary>
+          <div class="details-body">Tristeza persistente, perda de interesse e cansaço podem ter muitas causas. A terapia ajuda a entender o quadro e retomar sentido e energia.</div>
+        </details>
+
+        <details>
+          <summary>
+            Estresse e esgotamento (burnout)
+            <span class="chev" aria-hidden="true">˅</span>
+          </summary>
+          <div class="details-body">Quando o corpo e a mente pedem pausa, a terapia ajuda a reorganizar limites, rotina e prioridades com mais saúde emocional.</div>
+        </details>
+
+        <details>
+          <summary>
+            Problemas de autoestima e insegurança
+            <span class="chev" aria-hidden="true">˅</span>
+          </summary>
+          <div class="details-body">Fortalecer autoconfiança e mudar padrões de autocrítica é um processo. Vamos passo a passo, no seu tempo.</div>
+        </details>
+
+        <details>
+          <summary>
+            Relacionamentos e dependência emocional
+            <span class="chev" aria-hidden="true">˅</span>
+          </summary>
+          <div class="details-body">Entender vínculos, limites e repetição de ciclos ajuda a construir relações mais seguras e saudáveis.</div>
+        </details>
+
+        <details>
+          <summary>
+            Luto, traumas e mudanças difíceis
+            <span class="chev" aria-hidden="true">˅</span>
+          </summary>
+          <div class="details-body">Momentos marcantes pedem suporte. A terapia oferece um espaço seguro para elaborar dor, perdas e transições.</div>
+        </details>
+      </div>
+
+      <div style="height:14px"></div>
+
+      <div class="card">
+        <h3 style="margin:0 0 8px; color: var(--brand-2);">Como funciona</h3>
+        <p>Sessões com escuta ativa + plano terapêutico. A terapia é um processo — e você vai perceber evolução com constância.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" aria-label="Sobre nós">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Sobre a Destrave Sua Mente</h2>
+          <p class="section-desc">
+            A Destrave Sua Mente é um espaço de psicologia clínica focado em acolher, orientar e ajudar pessoas a retomarem clareza emocional, autonomia e qualidade de vida.
+            Acreditamos em uma psicologia humana e objetiva: você entende o que está acontecendo, aprende estratégias e constrói mudanças reais — no seu tempo, com apoio.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Diferenciais</h3>
+          <ul>
+            <li>Atendimento acolhedor e sem julgamentos</li>
+            <li>Linguagem clara (sem “psicologuês”)</li>
+            <li>Ética, sigilo e cuidado em cada etapa</li>
+            <li>Plano de acompanhamento personalizado</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Orientação com clareza</h3>
+          <p>Conte rapidamente o que você está vivendo e a equipe te orienta sobre o melhor caminho.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATENDIMENTOS -->
+  <section id="atendimentos" aria-label="Atendimentos">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Atendimento psicológico</h2>
+          <p class="section-desc">
+            A terapia é um espaço seguro para você falar, entender padrões, aliviar sintomas e aprender a lidar melhor com suas emoções.
+            Juntos, vamos construir um caminho possível para você.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Formato</h3>
+          <ul>
+            <li>Presencial e/ou online</li>
+            <li>Sessões semanais (em geral)</li>
+            <li>Duração média: 50 minutos</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Para quem é</h3>
+          <p>Se você sente que está travado(a), ansioso(a), sobrecarregado(a) ou repetindo ciclos que te machucam, terapia pode te ajudar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSTORNOS / EDUCATIVO -->
+  <section id="entenda" aria-label="Entenda o que você está sentindo">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Entenda o que você está sentindo</h2>
+          <p class="section-desc">
+            Informação ajuda — mas não substitui avaliação profissional. Aqui você encontra explicações simples sobre sintomas comuns e transtornos psicológicos.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid three">
+        <article class="card">
+          <div class="tag">Sinais comuns</div>
+          <h3>Ansiedade</h3>
+          <p>Preocupação constante, tensão no corpo, medo do futuro, dificuldade de relaxar.</p>
+        </article>
+
+        <article class="card">
+          <div class="tag">Crise aguda</div>
+          <h3>Crise de Pânico</h3>
+          <p>Pico súbito de medo com sintomas físicos (falta de ar, coração acelerado, sensação de “vou morrer”).</p>
+        </article>
+
+        <article class="card">
+          <div class="tag">Humor</div>
+          <h3>Depressão</h3>
+          <p>Tristeza persistente, perda de interesse, cansaço intenso, alterações no sono e apetite.</p>
+        </article>
+
+        <article class="card">
+          <div class="tag">Trabalho</div>
+          <h3>Burnout</h3>
+          <p>Esgotamento por estresse crônico, exaustão, irritabilidade e queda de desempenho.</p>
+        </article>
+
+        <article class="card">
+          <div class="tag">Pensamentos</div>
+          <h3>TOC</h3>
+          <p>Pensamentos intrusivos + rituais/compulsões para aliviar ansiedade.</p>
+        </article>
+
+        <article class="card">
+          <div class="tag">Trauma</div>
+          <h3>TEPT</h3>
+          <p>Revivência, hipervigilância, evitação e sintomas após eventos marcantes.</p>
+        </article>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="card" role="note" aria-label="Aviso importante">
+        <strong style="color: var(--ink);">Aviso importante:</strong>
+        <p style="margin-top: 6px;">
+          Se identificou com algo? Isso não é diagnóstico. O ideal é conversar com um psicólogo para entender seu caso.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSSO ESPAÇO -->
+  <section id="espaco" aria-label="Nosso espaço">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Nosso espaço</h2>
+          <p class="section-desc">
+            Criamos um ambiente pensado para acolher: discreto, confortável e com privacidade. Aqui, você pode respirar e ser ouvido(a) com calma.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid two">
+        <div class="photo" aria-label="Foto do nosso espaço">
+          <img src="nossoespaço.png" alt="Ambiente da clínica, com privacidade e acolhimento" />
+        </div>
+
+        <div class="card">
+          <h3>Detalhes</h3>
+          <ul>
+            <li>Localização (bairro/cidade)</li>
+            <li>Como é a recepção</li>
+            <li>Estacionamento/como chegar (se tiver)</li>
+            <li>Fotos do consultório (se quiser, adicione)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" aria-label="Dúvidas frequentes">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Dúvidas frequentes</h2>
+          <p class="section-desc">Respostas rápidas para ajudar você a decidir com mais segurança.</p>
+        </div>
+      </div>
+
+      <div class="faq" aria-label="Perguntas e respostas">
+        <details>
+          <summary>
+            Como funciona a primeira sessão?
+            <span class="chev" aria-hidden="true">˅</span>
+          </summary>
+          <div class="details-body">
+            Você conta o que está vivendo, alinhamos objetivos e combinamos o plano de acompanhamento.
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            Terapia é só pra quem ‘não aguenta mais’?
+            <span class="chev" aria-hidden="true">˅</span>
+          </summary>
+          <div class="details-body">
+            Não. Terapia também é para prevenção, autoconhecimento e melhoria de qualidade de vida.
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            Online funciona mesmo?
+            <span class="chev" aria-hidden="true">˅</span>
+          </summary>
+          <div class="details-body">
+            Sim, para muitas demandas funciona muito bem (desde que você tenha um ambiente minimamente reservado).
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            Quanto tempo dura o processo?
+            <span class="chev" aria-hidden="true">˅</span>
+          </summary>
+          <div class="details-body">
+            Depende da sua demanda e objetivos. A evolução é progressiva e individual.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" aria-label="Contato">
+    <div class="container">
+      <div class="card">
+        <h2 style="margin-bottom: 8px;">Entre em contato</h2>
+        <p class="section-desc" style="margin-top:0">
+          Se você quer começar, tirar dúvidas ou entender qual caminho faz sentido pra você, fale com a equipe da Destrave Sua Mente.
+        </p>
+
+        <div style="height:12px"></div>
+
+        <!-- CTA 2 (WhatsApp) -->
+        <a class="btn" id="ctaWa2" href="#" target="_blank" rel="noopener" style="width:100%; justify-content:center; padding:14px 16px; font-size:15px; border-radius:16px;">
+          Falar no WhatsApp agora
+        </a>
+
+        <p class="mini" style="margin-top:12px;">
+          Resposta rápida em horário comercial. Sigilo e acolhimento desde o primeiro contato.
+        </p>
+
+        <div class="divider"></div>
+
+        <!-- CTA 3 (WhatsApp) - final -->
+        <a class="btn secondary" id="ctaWa3" href="#" target="_blank" rel="noopener" style="width:100%; justify-content:center; padding:14px 16px; font-size:15px; border-radius:16px;">
+          Quer ajuda? Clique e fale com a gente.
+        </a>
+      </div>
+
+      <footer>
+        <div class="divider"></div>
+        <p style="margin:0">
+          © <span id="year"></span> Destrave Sua Mente • Psicologia clínica<br/>
+          <span class="mini">Este site tem caráter informativo e não substitui avaliação profissional.</span>
+        </p>
+      </footer>
+    </div>
+  </section>
+
+  <script>
+    // ====== CONFIG WhatsApp ======
+    // Troque o número pelo oficial (com DDI/DDD), mantendo a estrutura wa.me
+    const WHATSAPP_URL = "https://wa.me/55SEUNUMEROAQUI?text=" + encodeURIComponent(
+      "Olá! Quero tirar uma dúvida / agendar um atendimento com a Destrave Sua Mente."
+    );
+
+    // Exatamente 3 CTAs (WhatsApp)
+    ["ctaWa1","ctaWa2","ctaWa3"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.href = WHATSAPP_URL;
+    });
+
+    // Ano no rodapé
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile menu behavior
+    const btn = document.getElementById("menuBtn");
+    const panel = document.getElementById("menuPanel");
+    const backdrop = document.getElementById("menuBackdrop");
+
+    function closeMenu(){
+      panel.classList.remove("open");
+      backdrop.classList.remove("open");
+      btn.setAttribute("aria-expanded","false");
+    }
+    function openMenu(){
+      panel.classList.add("open");
+      backdrop.classList.add("open");
+      btn.setAttribute("aria-expanded","true");
+    }
+
+    btn.addEventListener("click", () => {
+      const isOpen = panel.classList.contains("open");
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    backdrop.addEventListener("click", closeMenu);
+
+    // Fecha ao clicar em algum item
+    panel.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+
+    // UX: fechar outros <details> ao abrir um (na lista "Como podemos te ajudar")
+    const helpDetails = document.querySelectorAll('section[aria-label="Como podemos te ajudar"] details');
+    helpDetails.forEach(d => {
+      d.addEventListener("toggle", () => {
+        if (!d.open) return;
+        helpDetails.forEach(other => { if (other !== d) other.open = false; });
+      });
+    });
+
+    // ESC fecha menu
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+  </script>
+</body>
+</html>
